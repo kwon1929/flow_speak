@@ -13,7 +13,7 @@ const AnimatedGrid = () => (
             ease: "linear",
         }}
     >
-        <div className="h-full w-full [background-image:repeating-linear-gradient(100deg,#64748B_0%,#64748B_1px,transparent_1px,transparent_4%)] opacity-20" />
+        <div className="h-full w-full [background-image:repeating-linear-gradient(100deg,#64748B_0%,#64748B_1px,transparent_1px,transparent_4%)] opacity-10" />
     </motion.div>
 );
 
@@ -68,8 +68,8 @@ const ChatBubble = ({
             className={clsx(
                 "max-w-[220px] rounded-2xl px-4 py-2.5 text-sm leading-relaxed",
                 align === "right"
-                    ? "bg-blue-500 text-white rounded-br-sm"
-                    : "bg-white/80 dark:bg-white/10 text-slate-700 dark:text-slate-200 rounded-bl-sm border border-slate-200/60 dark:border-white/10"
+                    ? "bg-blue-600 text-white rounded-br-sm"
+                    : "bg-white/10 text-slate-200 rounded-bl-sm border border-white/10"
             )}
         >
             {text}
@@ -88,8 +88,8 @@ const FloatingCard = ({
 }) => (
     <motion.div
         className={clsx(
-            "absolute rounded-2xl border border-slate-200/40 dark:border-white/10",
-            "bg-white/60 dark:bg-white/5 backdrop-blur-xl shadow-lg",
+            "absolute rounded-2xl border border-white/10",
+            "bg-black/40 backdrop-blur-xl shadow-lg",
             "px-5 py-4",
             className
         )}
@@ -115,10 +115,10 @@ const ScoreBar = ({
     delay: number;
 }) => (
     <div className="flex items-center gap-3">
-        <span className="text-xs text-slate-500 dark:text-slate-400 w-16">
+        <span className="text-xs text-slate-400 w-16">
             {label}
         </span>
-        <div className="flex-1 h-2 bg-slate-200/60 dark:bg-white/10 rounded-full overflow-hidden">
+        <div className="flex-1 h-2 bg-white/10 rounded-full overflow-hidden">
             <motion.div
                 className={clsx("h-full rounded-full", color)}
                 initial={{ width: 0 }}
@@ -126,7 +126,7 @@ const ScoreBar = ({
                 transition={{ delay, duration: 1, ease: "easeOut" }}
             />
         </div>
-        <span className="text-xs font-semibold text-slate-700 dark:text-slate-200 w-8 text-right">
+        <span className="text-xs font-semibold text-slate-200 w-8 text-right">
             {score}
         </span>
     </div>
@@ -137,13 +137,14 @@ export function Hero({ className }: { className?: string }) {
         <div
             className={clsx(
                 "relative flex h-screen w-full items-center justify-center overflow-hidden",
-                "bg-white dark:bg-black/5",
+                // Removed bg-white, replaced with transparent/dark since global bg is dark
+                "bg-transparent",
                 className
             )}
         >
             <AnimatedGrid />
 
-            {/* Animated background circles */}
+            {/* Animated background circles - Adjusted opacities for dark theme */}
             <motion.div className="absolute h-[520px] w-[520px]">
                 {[0, 1, 2].map((i) => (
                     <motion.div
@@ -152,16 +153,16 @@ export function Hero({ className }: { className?: string }) {
                             "absolute inset-0 rounded-full",
                             "border-2 bg-gradient-to-br to-transparent",
                             [
-                                "border-blue-500/50",
-                                "border-sky-400/40",
-                                "border-slate-600/20",
+                                "border-purple-500/30",
+                                "border-violet-500/20",
+                                "border-fuchsia-500/10",
                             ][i],
-                            "from-blue-500/20"
+                            "from-purple-500/10"
                         )}
                         animate={{
                             rotate: 360,
                             scale: [1, 1.05 + i * 0.05, 1],
-                            opacity: [0.6, 0.9, 0.6],
+                            opacity: [0.3, 0.5, 0.3],
                         }}
                         transition={{
                             duration: 6 + i,
@@ -172,10 +173,10 @@ export function Hero({ className }: { className?: string }) {
                 ))}
             </motion.div>
 
-            {/* Glow effects */}
+            {/* Glow effects - Updated to purple/violet */}
             <div className="absolute inset-0 [mask-image:radial-gradient(90%_60%_at_50%_50%,#000_40%,transparent)]">
-                <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(59,130,246,0.25),transparent_70%)] blur-[120px]" />
-                <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(14,165,233,0.15),transparent)] blur-[80px]" />
+                <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(168,85,247,0.15),transparent_70%)] blur-[120px]" />
+                <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(139,92,246,0.1),transparent)] blur-[80px]" />
             </div>
 
             {/* Center content */}
@@ -186,16 +187,16 @@ export function Hero({ className }: { className?: string }) {
                 transition={{ duration: 0.8, ease: "easeOut" }}
             >
                 <motion.div
-                    className="inline-flex items-center gap-2 rounded-full border border-blue-200/60 dark:border-blue-500/30 bg-blue-50/80 dark:bg-blue-500/10 px-4 py-1.5 mb-6"
+                    className="inline-flex items-center gap-2 rounded-full border border-purple-500/30 bg-purple-500/10 px-4 py-1.5 mb-6"
                     initial={{ opacity: 0, scale: 0.9 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ delay: 0.1, duration: 0.5 }}
                 >
                     <span className="relative flex h-2 w-2">
-                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75" />
-                        <span className="relative inline-flex rounded-full h-2 w-2 bg-blue-500" />
+                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-purple-400 opacity-75" />
+                        <span className="relative inline-flex rounded-full h-2 w-2 bg-purple-500" />
                     </span>
-                    <span className="text-sm font-medium text-blue-700 dark:text-blue-300">
+                    <span className="text-sm font-medium text-purple-300">
                         AI-Powered TOEFL Preparation
                     </span>
                 </motion.div>
@@ -203,17 +204,17 @@ export function Hero({ className }: { className?: string }) {
                 <h1
                     className={clsx(
                         "text-5xl font-bold tracking-tight md:text-7xl",
-                        "bg-gradient-to-b from-slate-950 to-slate-600 dark:from-white dark:to-slate-300 bg-clip-text text-transparent"
+                        "bg-gradient-to-b from-white to-slate-400 bg-clip-text text-transparent"
                     )}
                 >
                     FlowSpeak{" "}
-                    <span className="bg-gradient-to-r from-blue-600 to-cyan-500 dark:from-blue-400 dark:to-cyan-300 bg-clip-text text-transparent">
+                    <span className="bg-gradient-to-r from-purple-400 to-pink-300 bg-clip-text text-transparent">
                         AI
                     </span>
                 </h1>
 
                 <motion.p
-                    className="mt-5 text-lg md:text-xl text-slate-600 dark:text-slate-300 leading-relaxed"
+                    className="mt-5 text-lg md:text-xl text-slate-300 leading-relaxed"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ delay: 0.3 }}
@@ -229,7 +230,7 @@ export function Hero({ className }: { className?: string }) {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.5, duration: 0.5 }}
                 >
-                    <button className="group relative inline-flex items-center gap-2 rounded-full bg-blue-600 hover:bg-blue-700 text-white px-7 py-3 text-base font-semibold transition-all shadow-lg shadow-blue-500/25 hover:shadow-blue-500/40">
+                    <a href="/auth" className="group relative inline-flex items-center gap-2 rounded-full bg-purple-600 hover:bg-purple-700 text-white px-7 py-3 text-base font-semibold transition-all shadow-lg shadow-purple-500/25 hover:shadow-purple-500/40">
                         무료로 시작하기
                         <svg
                             viewBox="0 0 20 20"
@@ -242,17 +243,17 @@ export function Hero({ className }: { className?: string }) {
                                 clipRule="evenodd"
                             />
                         </svg>
-                    </button>
-                    <button className="inline-flex items-center gap-2 rounded-full border border-slate-300 dark:border-white/20 bg-white/60 dark:bg-white/5 hover:bg-white dark:hover:bg-white/10 text-slate-700 dark:text-slate-200 px-7 py-3 text-base font-medium transition-all">
+                    </a>
+                    <a href="/auth" className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/5 hover:bg-white/10 text-slate-200 px-7 py-3 text-base font-medium transition-all">
                         <svg
                             viewBox="0 0 20 20"
                             fill="currentColor"
-                            className="w-5 h-5 text-blue-500"
+                            className="w-5 h-5 text-purple-400"
                         >
                             <path d="M6.3 2.84A1.5 1.5 0 004 4.11v11.78a1.5 1.5 0 002.3 1.27l9.344-5.891a1.5 1.5 0 000-2.538L6.3 2.84z" />
                         </svg>
                         데모 체험하기
-                    </button>
+                    </a>
                 </motion.div>
             </motion.div>
 
@@ -262,7 +263,7 @@ export function Hero({ className }: { className?: string }) {
                 delay={0.8}
             >
                 <div className="flex items-center gap-2 mb-3">
-                    <div className="w-7 h-7 rounded-full bg-gradient-to-br from-blue-500 to-cyan-400 flex items-center justify-center">
+                    <div className="w-7 h-7 rounded-full bg-gradient-to-br from-purple-500 to-pink-400 flex items-center justify-center">
                         <svg
                             viewBox="0 0 20 20"
                             fill="white"
@@ -275,7 +276,7 @@ export function Hero({ className }: { className?: string }) {
                             />
                         </svg>
                     </div>
-                    <span className="text-xs font-semibold text-slate-700 dark:text-slate-200">
+                    <span className="text-xs font-semibold text-slate-200">
                         Speaking Practice
                     </span>
                 </div>
@@ -296,7 +297,7 @@ export function Hero({ className }: { className?: string }) {
                         animate={{ opacity: 1 }}
                         transition={{ delay: 2.6 }}
                     >
-                        <SoundWave className="text-blue-400" />
+                        <SoundWave className="text-purple-400" />
                         <span className="text-[11px] text-slate-400">
                             Recording...
                         </span>
@@ -323,7 +324,7 @@ export function Hero({ className }: { className?: string }) {
                             />
                         </svg>
                     </div>
-                    <span className="text-xs font-semibold text-slate-700 dark:text-slate-200">
+                    <span className="text-xs font-semibold text-slate-200">
                         Score Analysis
                     </span>
                 </div>
@@ -332,7 +333,7 @@ export function Hero({ className }: { className?: string }) {
                         label="Fluency"
                         score={26}
                         max={30}
-                        color="bg-blue-500"
+                        color="bg-purple-500"
                         delay={1.5}
                     />
                     <ScoreBar
@@ -346,7 +347,7 @@ export function Hero({ className }: { className?: string }) {
                         label="Vocab"
                         score={27}
                         max={30}
-                        color="bg-violet-500"
+                        color="bg-indigo-500"
                         delay={1.9}
                     />
                     <ScoreBar
@@ -358,17 +359,17 @@ export function Hero({ className }: { className?: string }) {
                     />
                 </div>
                 <motion.div
-                    className="mt-4 pt-3 border-t border-slate-200/60 dark:border-white/10 flex items-center justify-between"
+                    className="mt-4 pt-3 border-t border-white/10 flex items-center justify-between"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ delay: 2.4 }}
                 >
-                    <span className="text-xs text-slate-500 dark:text-slate-400">
+                    <span className="text-xs text-slate-400">
                         Estimated Score
                     </span>
-                    <span className="text-lg font-bold text-slate-800 dark:text-white">
+                    <span className="text-lg font-bold text-white">
                         102
-                        <span className="text-xs font-normal text-slate-400">
+                        <span className="text-xs font-normal text-slate-500">
                             {" "}
                             / 120
                         </span>
